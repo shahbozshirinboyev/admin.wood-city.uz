@@ -3,6 +3,7 @@ import supabase from "./services/supabase";
 import DeleteItem from "./components/DeleteItem";
 import AddProductType from "./components/AddProductType";
 import { NavLink } from "react-router-dom";
+import RemoveProductType from "./components/RemoveProductType";
 
 function App() {
   const [allProduct, setAllProduct] = useState([]);
@@ -19,6 +20,8 @@ function App() {
   useEffect(() => {
     getData();
   }, []);
+
+  
 
   const [svg, setSvg] = useState({ file: "", url: "" });
   const handleSvg = (e) => {
@@ -96,7 +99,10 @@ function App() {
   };
 
   // AddProductType section ---- START
-  const [selectMenuInfo, setSelectMenuInfo] = useState({menu_id: '', types: []})
+  const [selectMenuInfo, setSelectMenuInfo] = useState({
+    menu_id: "",
+    types: [],
+  });
   // AddProductType section ---- END
 
   return (
@@ -226,92 +232,97 @@ function App() {
           </form>
         </dialog>
 
-        {allProduct.sort((a, b) => new Date(a.created_at) - new Date(b.created_at)).map((item) => (
-          <div key={item.id}>
-            {/* Furniture type START */}
-            <div className="border my-2 px-4">
-              <div className="text-xl md:text-2xl lg:text-3xl font-bold py-4 flex gap-4 justify-between items-center">
-                <div className="flex justify-start items-center gap-4">
-                  <img
-                    src={item?.icon}
-                    alt=""
-                    className="w-[25px] h-[25px] object-cover"
-                  />
-                  <h1 className="text-[20px]">{item?.name}</h1>
-                </div>
-                <DeleteItem id={item.id} getData={getData} />
-              </div>
-              <div className="flex gap-4 mb-6">
-                <p className="text-[14px] w-full">{item?.description}</p>
-                <img
-                  src={item?.image}
-                  alt={item?.name}
-                  className="w-auto h-[100px] object-cover"
-                />
-              </div>
-              <div className="border px-2 py-1 mb-3 flex justify-start items-center">
-                <p className="font-semibold w-full flex justify-start items-center">
-                  <span>Number of product types:</span>&nbsp;
-                  <span className="text-red-700">{item.types.length}</span>
-                </p>
-                <button
-                  className="btn btn-sm"
-                  onClick={() => {
-                    document.getElementById("AddProductType").showModal();
-                    setSelectMenuInfo({menu_id: item.id, types: item.types})
-                  }}
-                >
-                  <i className="bi bi-plus-lg"></i>
-                  Добавить
-                </button>
-              </div>
-            
-            {/* Furniture type END */}
-            {item.types.length === 0 ? (
-              <p className="text-center my-4">
-                <i className="bi bi-diagram-3 text-3xl"></i> <br /> No product
-                type...
-              </p>
-            ) : (
-              ""
-            )}
-            
-            {item?.types && (
-              <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-8 pb-4">
-                {item.types.map((product) => (
-                  <div
-                    className="border p-4 group transition-all duration-300 ease-in-out transform hover:scale-100 flex flex-col justify-between"
-                    key={product.id}
-                    // to="/activefurnituremenuitems"
-                    // state={{ activeMenuFurniture: product }}
-                    // onClick={() => { setActiveMenuFurniture(product); }}
-                  >
-                    <div className="flex justify-start items-start">
-                      <div className="w-full">
-                      <h1 className="font-semibold">{product.name}</h1>
-                      <span className="font-bold opacity-40 text-[14px]">
-                        {product.price}
-                      </span>
-                      </div>
-
-                      <button className="btn btn-sm" onClick={()=>{console.log(product.id)}}><i className="bi bi-trash3"></i></button>
-
-                    </div>
-                    <div className="py-6 flex justify-center items-end mt-2">
-                      <i className="bi bi-chevron-right opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
-                      <img
-                        src={product.image}
-                        className="mx-auto h-[50px] transition-all duration-300 ease-in-out transform group-hover:scale-105"
-                        alt=""
-                      />
-                    </div>
+        {allProduct
+          .sort((a, b) => new Date(a.created_at) - new Date(b.created_at))
+          .map((item) => (
+            <div key={item.id}>
+              {/* Furniture type START */}
+              <div className="border my-2 px-4">
+                <div className="text-xl md:text-2xl lg:text-3xl font-bold py-4 flex gap-4 justify-between items-center">
+                  <div className="flex justify-start items-center gap-4">
+                    <img
+                      src={item?.icon}
+                      alt=""
+                      className="w-[25px] h-[25px] object-cover"
+                    />
+                    <h1 className="text-[20px]">{item?.name}</h1>
                   </div>
-                ))}
-              </ul>
-            )}
+                  <DeleteItem id={item.id} getData={getData} />
+                </div>
+                <div className="flex gap-4 mb-6">
+                  <p className="text-[14px] w-full">{item?.description}</p>
+                  <img
+                    src={item?.image}
+                    alt={item?.name}
+                    className="w-auto h-[100px] object-cover"
+                  />
+                </div>
+                <div className="border px-2 py-1 mb-3 flex justify-start items-center">
+                  <p className="font-semibold w-full flex justify-start items-center">
+                    <span>Number of product types:</span>&nbsp;
+                    <span className="text-red-700">{item.types.length}</span>
+                  </p>
+                  <button
+                    className="btn btn-sm"
+                    onClick={() => {
+                      document.getElementById("AddProductType").showModal();
+                      setSelectMenuInfo({
+                        menu_id: item.id,
+                        types: item.types,
+                      });
+                    }}
+                  >
+                    <i className="bi bi-plus-lg"></i>
+                    Добавить
+                  </button>
+                </div>
+
+                {/* Furniture type END */}
+                {item.types.length === 0 ? (
+                  <p className="text-center my-4">
+                    <i className="bi bi-diagram-3 text-3xl"></i> <br /> No
+                    product type...
+                  </p>
+                ) : (
+                  ""
+                )}
+
+                {item?.types && (
+                  <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-8 pb-4">
+                    {item.types.map((product) => (
+                      <div
+                        className="border p-4 group transition-all duration-300 ease-in-out transform hover:scale-100 flex flex-col justify-between"
+                        key={product.id}
+                        // to="/activefurnituremenuitems"
+                        // state={{ activeMenuFurniture: product }}
+                        // onClick={() => { setActiveMenuFurniture(product); }}
+                      >
+                        <div className="flex justify-start items-start">
+                          <div className="w-full">
+                            <h1 className="font-semibold">{product.name}</h1>
+                            <span className="font-bold opacity-40 text-[14px]">
+                              {product.price}
+                            </span>
+                          </div>
+
+                          
+                          <RemoveProductType id={product.id} getData={getData} />
+                        </div>
+                        <div className="py-6 flex justify-center items-end mt-2">
+                          <i className="bi bi-chevron-right opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                          <img
+                            src={product.image}
+                            className="mx-auto h-[50px] transition-all duration-300 ease-in-out transform group-hover:scale-105"
+                            alt=""
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </>
   );
