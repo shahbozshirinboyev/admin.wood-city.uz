@@ -286,11 +286,16 @@ function App() {
                     // state={{ activeMenuFurniture: product }}
                     // onClick={() => { setActiveMenuFurniture(product); }}
                   >
-                    <div className="flex-grow">
+                    <div className="flex justify-start items-start">
+                      <div className="w-full">
                       <h1 className="font-semibold">{product.name}</h1>
                       <span className="font-bold opacity-40 text-[14px]">
                         {product.price}
                       </span>
+                      </div>
+
+                      <button className="btn btn-sm" onClick={()=>{console.log(product.id)}}><i className="bi bi-trash3"></i></button>
+
                     </div>
                     <div className="py-6 flex justify-center items-end mt-2">
                       <i className="bi bi-chevron-right opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
