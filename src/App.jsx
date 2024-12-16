@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import supabase from "./services/supabase";
 import DeleteItem from "./components/DeleteItem";
 import AddProductType from "./components/AddProductType";
+import { NavLink } from "react-router-dom";
 
 function App() {
   const [allProduct, setAllProduct] = useState([]);
@@ -100,7 +101,7 @@ function App() {
 
   return (
     <>
-      <AddProductType selectMenuInfo={selectMenuInfo} />
+      <AddProductType selectMenuInfo={selectMenuInfo} getData={getData} />
       <div className="container">
         <div className="my-4">
           <button
@@ -225,7 +226,7 @@ function App() {
           </form>
         </dialog>
 
-        {allProduct.map((item) => (
+        {allProduct.sort((a, b) => new Date(a.created_at) - new Date(b.created_at)).map((item) => (
           <div key={item.id}>
             {/* Furniture type START */}
             <div className="border my-2 px-4">
@@ -264,27 +265,26 @@ function App() {
                   Добавить
                 </button>
               </div>
-            </div>
+            
             {/* Furniture type END */}
-            {/* {item.items.length === 0 ? (
-              <p className="text-center text-xl">
-                <i className="bi bi-layout-wtf text-3xl"></i> <br /> No product
-                type!
+            {item.types.length === 0 ? (
+              <p className="text-center my-4">
+                <i className="bi bi-diagram-3 text-3xl"></i> <br /> No product
+                type...
               </p>
             ) : (
               ""
-            )} */}
-            {/* {item?.items && (
-              <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-8 pb-8">
-                {item.items.map((product) => (
-                  <NavLink
+            )}
+            
+            {item?.types && (
+              <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-8 pb-4">
+                {item.types.map((product) => (
+                  <div
                     className="border p-4 group transition-all duration-300 ease-in-out transform hover:scale-100 flex flex-col justify-between"
                     key={product.id}
-                    to="/activefurnituremenuitems"
-                    state={{ activeMenuFurniture: product }}
-                    onClick={() => {
-                      setActiveMenuFurniture(product);
-                    }}
+                    // to="/activefurnituremenuitems"
+                    // state={{ activeMenuFurniture: product }}
+                    // onClick={() => { setActiveMenuFurniture(product); }}
                   >
                     <div className="flex-grow">
                       <h1 className="font-semibold">{product.name}</h1>
@@ -300,10 +300,11 @@ function App() {
                         alt=""
                       />
                     </div>
-                  </NavLink>
+                  </div>
                 ))}
               </ul>
-            )} */}
+            )}
+            </div>
           </div>
         ))}
       </div>
