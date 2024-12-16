@@ -1,8 +1,12 @@
+import { useState } from "react";
 import supabase from "../services/supabase";
 
 function DeleteItem({ id, getData }) {
+    const [loading, setLoading] = useState(false)
 
     async function deleteRowById(id) {
+
+        setLoading(true)
         const { data, error } = await supabase
             .from('furniture')
             .delete()
@@ -13,6 +17,9 @@ function DeleteItem({ id, getData }) {
         } else {
             console.log(data);
             getData();
+            document.getElementById(`my_modal_${id}`).close()
+            setLoading(false)
+
         }
     }
 
@@ -25,7 +32,7 @@ function DeleteItem({ id, getData }) {
                 <div className="modal-box">
                     <h6 className='pb-4 text-[16px]'>Delete product menu?</h6>
                     <div className='flex justify-center gap-8'>
-                        <button onClick={() => { deleteRowById(id) }} className='btn btn-sm'>OK</button>
+                        <button onClick={() => { deleteRowById(id) }} className='btn btn-sm'><span className={`${loading ? "hidden": ""}`}>OK</span><div className={`flex justify-center items-center gap-3 ${loading ? "": "hidden"}`}><span className="loading loading-spinner loading-xs"></span>Loading</div></button>
                         <button onClick={() => { document.getElementById(`my_modal_${id}`).close() }} className='btn btn-sm'>Cancel</button>
                     </div>
                 </div>
