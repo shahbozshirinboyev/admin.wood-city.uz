@@ -72,8 +72,18 @@ function App() {
     e.preventDefault();
     setLoading(true);
 
-    const image_png = await uploadImageAndGetUrl(png.file);
-    const image_svg = await uploadImageAndGetUrl(svg.file);
+    let image_png;
+    if (png.file !== "") {
+      image_png = await uploadImageAndGetUrl(png.file);
+    } else {
+      image_png = "https://static.vecteezy.com/system/resources/thumbnails/008/695/917/small_2x/no-image-available-icon-simple-two-colors-template-for-no-image-or-picture-coming-soon-and-placeholder-illustration-isolated-on-white-background-vector.jpg";
+    }
+    let image_svg;
+    if (svg.file !== "") {
+      image_svg = await uploadImageAndGetUrl(svg.file);
+    } else {
+      image_svg = "https://static.vecteezy.com/system/resources/thumbnails/008/695/917/small_2x/no-image-available-icon-simple-two-colors-template-for-no-image-or-picture-coming-soon-and-placeholder-illustration-isolated-on-white-background-vector.jpg";
+    }
 
     const { data, error } = await supabase.from("furniture").insert([
       {

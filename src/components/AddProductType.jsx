@@ -48,7 +48,12 @@ function AddProductType({ selectMenuInfo, getData }) {
   const addProductType = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const image = await uploadImageAndGetUrl(png.file);
+    let image;
+    if (png.file !== "") {
+      image = await uploadImageAndGetUrl(png.file);
+    } else {
+      image = "https://static.vecteezy.com/system/resources/thumbnails/008/695/917/small_2x/no-image-available-icon-simple-two-colors-template-for-no-image-or-picture-coming-soon-and-placeholder-illustration-isolated-on-white-background-vector.jpg";
+    }
     const { data, error } = await supabase
       .from("furniture")
       .update({
@@ -134,7 +139,7 @@ function AddProductType({ selectMenuInfo, getData }) {
               <label htmlFor="" className="flex flex-col my-2">
                 <span>Description:</span>
                 <textarea
-                rows="5"
+                  rows="5"
                   name="description"
                   value={typesInfo.description}
                   onChange={inputHandle}
