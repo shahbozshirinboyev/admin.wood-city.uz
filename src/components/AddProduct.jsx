@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import supabase from "../services/supabase";
 
-function AddProduct({getData, activeMenuTypeId, activeMenuId}) {
+function AddProduct({ getData, activeMenuTypeId, activeMenuId }) {
+  const [loading, setLoading] = useState(false);
   const [productInfo, setProductInfo] = useState({
     title: "",
     price: "",
@@ -41,6 +42,7 @@ function AddProduct({getData, activeMenuTypeId, activeMenuId}) {
 
   const addProduct = async (e) => {
     e.preventDefault();
+    setLoading(true);
     console.log(productInfo);
 
     // Types massivini olish va yangilash uchun to'g'ri so'rov yuborish
@@ -65,14 +67,16 @@ function AddProduct({getData, activeMenuTypeId, activeMenuId}) {
     if (png.file !== "") {
       imageProduct = await uploadImageAndGetUrl(png.file);
     } else {
-      imageProduct = "https://static.vecteezy.com/system/resources/thumbnails/008/695/917/small_2x/no-image-available-icon-simple-two-colors-template-for-no-image-or-picture-coming-soon-and-placeholder-illustration-isolated-on-white-background-vector.jpg";
+      imageProduct =
+        "https://static.vecteezy.com/system/resources/thumbnails/008/695/917/small_2x/no-image-available-icon-simple-two-colors-template-for-no-image-or-picture-coming-soon-and-placeholder-illustration-isolated-on-white-background-vector.jpg";
     }
 
     let imageDes;
     if (desImg.file !== "") {
       imageDes = await uploadImageAndGetUrl(desImg.file);
     } else {
-      imageDes = "https://static.vecteezy.com/system/resources/thumbnails/008/695/917/small_2x/no-image-available-icon-simple-two-colors-template-for-no-image-or-picture-coming-soon-and-placeholder-illustration-isolated-on-white-background-vector.jpg";
+      imageDes =
+        "https://static.vecteezy.com/system/resources/thumbnails/008/695/917/small_2x/no-image-available-icon-simple-two-colors-template-for-no-image-or-picture-coming-soon-and-placeholder-illustration-isolated-on-white-background-vector.jpg";
     }
 
     // Types massivini yangilash
@@ -81,12 +85,17 @@ function AddProduct({getData, activeMenuTypeId, activeMenuId}) {
         // Har bir mos type ichidagi products massiviga yangi product qo'shish
         type.products = [
           ...(type.products || []),
-          { ...productInfo, id: uuidv4(), image_product: imageProduct, image_des: imageDes,  created_at:  new Date().toISOString() },
+          {
+            ...productInfo,
+            id: uuidv4(),
+            image_product: imageProduct,
+            image_des: imageDes,
+            created_at: new Date().toISOString(),
+          },
         ];
       }
       return type;
     });
-
 
     // Yangilangan types massivini furnitures jadvaliga yuborish
     const { data, error } = await supabase
@@ -99,10 +108,23 @@ function AddProduct({getData, activeMenuTypeId, activeMenuId}) {
     } else {
       console.log("Data updated:", data);
       getData();
+      setProductInfo({
+        title: "",
+        price: "",
+        fix_price: "",
+        length: "",
+        width: "",
+        height: "",
+        description: "",
+        best_seller: false,
+      });
+      setDesImg({ file: "", url: "" });
+      setPng({ file: "", url: "" });
+      document.getElementById("addproduct").close();
       // UI yangilanishi yoki boshqa amallarni bajarish
     }
 
-
+    setLoading(false);
   };
 
   return (
@@ -292,7 +314,15 @@ function AddProduct({getData, activeMenuTypeId, activeMenuId}) {
                 </div>
               </div>
               <button type="submit" className="mt-3 btn btn-sm w-full">
-                Save
+                <span className={`${loading ? "hidden" : ""}`}>Save</span>
+                <span
+                  className={`justify-center items-center gap-3 ${
+                    loading ? "flex" : "hidden"
+                  }`}
+                >
+                  <span class="loading loading-spinner loading-sm"></span>
+                  <span>Saving...</span>
+                </span>
               </button>
             </form>
           </>

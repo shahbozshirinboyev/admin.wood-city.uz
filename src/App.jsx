@@ -245,8 +245,11 @@ function App() {
   return (
     <>
       <AddProductType selectMenuInfo={selectMenuInfo} getData={getData} />
-      <AddProduct getData={getData} activeMenuTypeId={activeMenuTypeId} activeMenuId={activeMenuId} />
-
+      <AddProduct
+        getData={getData}
+        activeMenuTypeId={activeMenuTypeId}
+        activeMenuId={activeMenuId}
+      />
 
       {activeType && (
         <div className="container">
@@ -489,7 +492,6 @@ function App() {
       {!activeType && (
         <div className="container">
           <div className="mt-6 flex justify-between items-center">
-
             <button
               onClick={() => {
                 setActiveType(true);
@@ -500,21 +502,28 @@ function App() {
               Главная
             </button>
 
-            <button onClick={() => document.getElementById("addproduct").showModal()} className="btn btn-sm">
+            <button
+              onClick={() => document.getElementById("addproduct").showModal()}
+              className="btn btn-sm"
+            >
               <i className="bi bi-plus-lg"></i>
               Добавить
             </button>
-
           </div>
 
           <div className="mt-6 grid grid-cols-3 gap-6">
             {activeProducts?.map((product) => (
-
               <div key={product.id} className="border p-2">
-
                 <div className="flex justify-between items-center mb-2">
-                  <span></span>
-                  <button onClick={() => {removeProduct(product.id);}} className="btn btn-sm" >
+                  <span>{product?.title}</span>
+                  <span>{product?.price}</span>
+                  <span>{product?.fix_price}</span>
+                  <button
+                    onClick={() => {
+                      removeProduct(product.id);
+                    }}
+                    className="btn btn-sm"
+                  >
                     <i className="bi bi-trash3"></i>
                     {/* 
                     <span className="flex justify-center items-center gap-3">
@@ -526,9 +535,7 @@ function App() {
                 </div>
 
                 <p>{product.name}</p>
-
               </div>
-
             ))}
           </div>
 
@@ -542,7 +549,6 @@ function App() {
           ) : (
             ""
           )}
-
         </div>
       )}
     </>
