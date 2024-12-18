@@ -5,6 +5,7 @@ import AddProductType from "./components/AddProductType";
 import RemoveProductType from "./components/RemoveProductType";
 import { v4 as uuidv4 } from "uuid";
 import AddProduct from "./components/AddProduct";
+import RemoveProduct from "./components/RemoveProduct";
 
 function App() {
   const [activeMenuId, setActiveMenuId] = useState("");
@@ -196,51 +197,7 @@ function App() {
   });
   // AddProductType section ---- END
 
-  // Delete Product by ID
-  const removeProduct = async (productId) => {
-    // Types massivini olish
-    const { data: furnitureData, error: fetchError } = await supabase
-      .from("furniture")
-      .select("types") // types massivini olish
-      .eq("id", activeMenuId); // Mavjud id bo'yicha olish
-
-    if (fetchError) {
-      console.error("Error fetching furniture data:", fetchError);
-      return;
-    }
-
-    // data topilmadi holatida tekshiruv
-    const typesData = furnitureData[0]?.types;
-    if (!typesData) {
-      console.error("Types not found for the given activeMenuId");
-      return;
-    }
-
-    // Types massivini yangilash: productni o'chirish
-    const updatedTypes = typesData.map((type) => {
-      if (type.id === activeMenuTypeId) {
-        // Har bir mos type ichidagi products massividan productni o'chirish
-        type.products = type.products.filter(
-          (product) => product.id !== productId
-        );
-      }
-      return type;
-    });
-
-    // Yangilangan types massivini furnitures jadvaliga yuborish
-    const { data, error } = await supabase
-      .from("furniture")
-      .update({ types: updatedTypes })
-      .eq("id", activeMenuId);
-
-    if (error) {
-      console.error("Error updating data:", error);
-    } else {
-      console.log(data);
-      getData();
-      // UI yangilanishi yoki boshqa amallarni bajarish
-    }
-  };
+ 
 
   return (
     <>
@@ -515,7 +472,10 @@ function App() {
           <div className="grid grid-cols-2 md:grid-cols-3  xl:grid-cols-4 gap-4 my-4">
           {/* Card Design START */}
           {activeProducts?.map((product, index) => (
-            <div className="border p-4" key={index}>
+            <div className="border p-4 relative" key={index}>
+
+              <span className={`border absolute top-1 left-1 text-[13px] rounded-xl px-2 py-1 z-[2000] ${product.best_seller ? "bg-green-400": "bg-red-400 line-through"}`}>Лидеры продаж</span>
+
               <img src={product?.image_product} alt="" className="h-[220px] mx-auto" />
 
               <div className="flex gap-4">
@@ -524,10 +484,10 @@ function App() {
                 </p>
                 <div className="text-end">
                   <p className="whitespace-nowrap font-semibold">
-                    {product?.price}
+                    {product?.price} сум
                   </p>
                   <p className="whitespace-nowrap line-through text-[14px] font-semibold opacity-50">
-                    {product?.fix_price}
+                    {product?.fix_price} сум
                   </p>
                 </div>
               </div>
@@ -548,21 +508,9 @@ function App() {
               </div>
 
               <div className="pt-4 flex gap-4">
-                {/* <ActiveFurniture product={product} /> */}
-                <button
-                    onClick={() => {
-                      removeProduct(product.id);
-                    }}
-                    className="btn btn-sm"
-                  >
-                    <i className="bi bi-trash3"></i>
-                    {/* 
-                    <span className="flex justify-center items-center gap-3">
-                      <span class="loading loading-spinner loading-sm"></span>
-                      <span>Deleting...</span>
-                    </span> 
-                    */}
-                  </button>
+                <RemoveProduct getData={getData} activeMenuTypeId={activeMenuTypeId} activeMenuId={activeMenuId} id={product.id} />
+                
+                
                   <button className="btn btn-sm">
                   <i className="bi bi-menu-button-wide-fill"></i>
                   </button>

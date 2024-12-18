@@ -320,7 +320,7 @@ function AddProduct({ getData, activeMenuTypeId, activeMenuId }) {
                     loading ? "flex" : "hidden"
                   }`}
                 >
-                  <span class="loading loading-spinner loading-sm"></span>
+                  <span className="loading loading-spinner loading-sm"></span>
                   <span>Saving...</span>
                 </span>
               </button>
