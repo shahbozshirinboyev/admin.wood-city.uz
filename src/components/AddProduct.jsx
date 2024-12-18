@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
+import supabase from "../services/supabase";
 
-function AddProduct() {
+function AddProduct({getData, activeMenuTypeId, activeMenuId}) {
   const [productInfo, setProductInfo] = useState({
     title: "",
     price: "",

@@ -245,7 +245,7 @@ function App() {
   return (
     <>
       <AddProductType selectMenuInfo={selectMenuInfo} getData={getData} />
-      <AddProduct />
+      <AddProduct getData={getData} activeMenuTypeId={activeMenuTypeId} activeMenuId={activeMenuId} />
 
 
       {activeType && (
