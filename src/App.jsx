@@ -4,6 +4,7 @@ import DeleteItem from "./components/DeleteItem";
 import AddProductType from "./components/AddProductType";
 import RemoveProductType from "./components/RemoveProductType";
 import { v4 as uuidv4 } from "uuid";
+import AddProduct from "./components/AddProduct";
 
 function App() {
   const [activeMenuId, setActiveMenuId] = useState("");
@@ -244,6 +245,8 @@ function App() {
   return (
     <>
       <AddProductType selectMenuInfo={selectMenuInfo} getData={getData} />
+      <AddProduct />
+
 
       {activeType && (
         <div className="container">
@@ -486,6 +489,7 @@ function App() {
       {!activeType && (
         <div className="container">
           <div className="mt-6 flex justify-between items-center">
+
             <button
               onClick={() => {
                 setActiveType(true);
@@ -495,10 +499,12 @@ function App() {
               <i className="bi bi-house"></i>
               Главная
             </button>
-            <button onClick={addProduct} className="btn btn-sm">
+
+            <button onClick={() => document.getElementById("addproduct").showModal()} className="btn btn-sm">
               <i className="bi bi-plus-lg"></i>
               Добавить
             </button>
+
           </div>
 
           <div className="mt-6 grid grid-cols-3 gap-6">
@@ -525,6 +531,7 @@ function App() {
 
             ))}
           </div>
+
           {activeProducts.length === 0 ? (
             <div className="flex justify-center items-center w-full">
               <p className="text-center my-4">
@@ -535,6 +542,7 @@ function App() {
           ) : (
             ""
           )}
+
         </div>
       )}
     </>
