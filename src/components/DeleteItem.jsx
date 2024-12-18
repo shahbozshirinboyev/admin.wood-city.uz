@@ -14,7 +14,7 @@ function DeleteItem({ id, getData }) {
     if (error) {
       console.error(error.message);
     } else {
-      console.log(data);
+      console.log(data); 
       getData();
       document.getElementById(`my_modal_${id}`).close();
       setLoading(false);
