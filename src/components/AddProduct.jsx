@@ -253,7 +253,7 @@ function AddProduct({ getData, activeMenuTypeId, activeMenuId, uploadImageAndGet
                 </label>
               </div>
               <div className="flex mt-3 gap-3">
-                <div className="border-black border border-dotted w-[140px] h-[140px] flex-shrink-0 flex flex-col justify-center items-center">
+                <div className="border border-dashed w-[140px] h-auto flex-shrink-0 flex flex-col justify-center items-center">
                   <img
                     src={desImg.url}
                     className={`${
@@ -261,14 +261,14 @@ function AddProduct({ getData, activeMenuTypeId, activeMenuId, uploadImageAndGet
                     } w-auto h-[90px] object-cover mb-1`}
                   />
                   <p
-                    className={`text-[11px] whitespace-nowrap py-1 ${
+                    className={`text-[9px] whitespace-nowrap py-1 ${
                       desImg.url ? "hidden" : ""
                     }`}
                   >
                     Описание изображения
                   </p>
                   <label
-                    className={`text-[11px] btn btn-sm ${desImg.url ? "" : ""}`}
+                    className={`text-[11px] btn btn-xs ${desImg.url ? "" : ""}`}
                     htmlFor="selectpngdes"
                   >
                     Выберите PNG/JPG
