@@ -474,7 +474,10 @@ function App() {
           {activeProducts?.map((product, index) => (
             <div className="border p-4 relative" key={index}>
 
-              <span className={`border absolute top-1 left-1 text-[13px] rounded-xl px-2 py-1 z-[2000] ${product.best_seller ? "bg-green-400": "bg-red-400 line-through"}`}>Лидеры продаж</span>
+              <span className={`absolute top-1 left-1 text-[12px] px-1 py-[3px] 
+                ${product.best_seller ? "bg-green-400": "bg-red-400 line-through"}`}>
+                Лидеры продаж
+              </span>
 
               <img src={product?.image_product} alt="" className="h-[220px] mx-auto" />
 
@@ -507,18 +510,11 @@ function App() {
                 </div>
               </div>
 
-              <div className="pt-4 flex gap-4">
+              <div className="flex gap-4">
                 <RemoveProduct getData={getData} activeMenuTypeId={activeMenuTypeId} activeMenuId={activeMenuId} id={product.id} />
-                
-                
-                  <button className="btn btn-sm">
-                  <i className="bi bi-menu-button-wide-fill"></i>
-                  </button>
-
-                <button className="btn btn-sm flex-1">
-                  <i className="bi bi-cart"></i> В корзину
-                </button>
+                <button className="btn btn-sm flex-grow"> <i className="bi bi-menu-button-wide-fill"></i> </button>
               </div>
+
             </div>
           ))}
 

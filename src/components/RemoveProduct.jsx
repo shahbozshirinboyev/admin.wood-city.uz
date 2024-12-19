@@ -54,7 +54,7 @@ function RemoveProduct({ getData, id, activeMenuTypeId, activeMenuId}) {
   return (
     <>
     {/* Remove Button START */}
-      <button onClick={() => { document.getElementById(`modal_${id}`).showModal(); }} className="btn btn-sm">
+      <button onClick={() => { document.getElementById(`modal_${id}`).showModal(); }} className="btn btn-sm flex-grow">
         <i className="bi bi-trash3"></i>
       </button>
     {/* Remove Button END */}
