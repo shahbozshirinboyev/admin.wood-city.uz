@@ -3,7 +3,6 @@ import supabase from "./services/supabase";
 import DeleteItem from "./components/DeleteItem";
 import AddProductType from "./components/AddProductType";
 import RemoveProductType from "./components/RemoveProductType";
-import { v4 as uuidv4 } from "uuid";
 import AddProduct from "./components/AddProduct";
 import RemoveProduct from "./components/RemoveProduct";
 
@@ -13,79 +12,27 @@ function App() {
   const [activeType, setActiveType] = useState(true);
   const [activeProducts, setActiveProducts] = useState([]);
 
-  const handleMouseEnterMenu = (id) => {
-    setActiveMenuId(id);
-  };
-  const handleMouseEnterType = (id) => {
-    setActiveMenuTypeId(id);
-  };
+  const handleMouseEnterMenu = (id) => { setActiveMenuId(id); };
+  const handleMouseEnterType = (id) => { setActiveMenuTypeId(id); };
 
-  const addProduct = async () => {
-    // Types massivini olish va yangilash uchun to'g'ri so'rov yuborish
-    const { data: furnitureData, error: fetchError } = await supabase
-      .from("furniture")
-      .select("types") // types massivini olish
-      .eq("id", activeMenuId); // Mavjud id bo'yicha olish
-
-    if (fetchError) {
-      console.error("Error fetching furniture data:", fetchError);
-      return;
-    }
-
-    // data.topilmadi holatida tekshiruv
-    const typesData = furnitureData[0]?.types;
-    if (!typesData) {
-      console.error("Types not found for the given activeMenuId");
-      return;
-    }
-
-    // Types massivini yangilash
-    const updatedTypes = typesData.map((type) => {
-      if (type.id === activeMenuTypeId) {
-        // Har bir mos type ichidagi products massiviga yangi product qo'shish
-        type.products = [
-          ...(type.products || []),
-          { id: uuidv4(), name: "Shahboz Shirinboyev" },
-        ];
-      }
-      return type;
-    });
-
-    // Yangilangan types massivini furnitures jadvaliga yuborish
-    const { data, error } = await supabase
-      .from("furniture")
-      .update({ types: updatedTypes })
-      .eq("id", activeMenuId);
-
-    if (error) {
-      console.error("Error updating data:", error);
-    } else {
-      console.log("Data updated:", data);
-      getData();
-      // UI yangilanishi yoki boshqa amallarni bajarish
-    }
-  };
-
-  const [allProduct, setAllProduct] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [allProduct, setAllProduct] = useState([]);
+
   const getData = async () => {
     const { data, error } = await supabase.from("furniture").select("*");
     if (error) {
-      console.error("Error fetching data:", error);
+      console.error(error);
     } else {
+      console.log(data);
       setAllProduct(data);
-      if (activeMenuId !== "") {
-        // activeMenuId orqali tegishli furniture ma'lumotini topish
-        const selectedFurniture = data.find((item) => item.id === activeMenuId);
 
+      if (activeMenuId !== "") {
+        const selectedFurniture = data.find((item) => item.id === activeMenuId);
         if (selectedFurniture) {
-          // activeMenuTypeId orqali types ichidan mos type ni topish
           const selectedType = selectedFurniture.types.find(
             (type) => type.id === activeMenuTypeId
           );
-
           if (selectedType) {
-            // products massivini setActiveProducts ga yozish
             setActiveProducts(selectedType.products || []);
           } else {
             console.error("No type found for the given activeMenuTypeId");
@@ -96,12 +43,9 @@ function App() {
           setActiveProducts([]);
         }
       }
-      console.log(data);
     }
   };
-  useEffect(() => {
-    getData();
-  }, []);
+  useEffect(() => { getData(); }, []);
 
   const [svg, setSvg] = useState({ file: "", url: "" });
   const handleSvg = (e) => {
@@ -200,24 +144,14 @@ function App() {
   return (
     <>
       <AddProductType selectMenuInfo={selectMenuInfo} getData={getData} />
-      <AddProduct
-        uploadImageAndGetUrl={uploadImageAndGetUrl}
-        getData={getData}
-        activeMenuTypeId={activeMenuTypeId}
-        activeMenuId={activeMenuId}
-      />
+      <AddProduct uploadImageAndGetUrl={uploadImageAndGetUrl} getData={getData} activeMenuTypeId={activeMenuTypeId} activeMenuId={activeMenuId} />
 
       {activeType && (
         <div className="container">
+
           <div className="my-4 flex justify-end items-center">
-            <button
-              className="btn btn-sm"
-              onClick={() =>
-                document.getElementById("addFurniture").showModal()
-              }
-            >
-              <i className="bi bi-plus-lg"></i>
-              Добавить
+            <button className="btn btn-sm" onClick={() => document.getElementById("addFurniture").showModal()}>
+              <i className="bi bi-plus-lg"></i>Добавить
             </button>
           </div>
 
@@ -388,10 +322,10 @@ function App() {
 
                   {/* Furniture type END */}
                   {item.types.length === 0 ? (
-                    <p className="text-center mt-4">
+                    <div className="text-center mt-4">
                       <i className="bi bi-folder-x text-3xl text-red-700 opacity-75"></i>
                       <p className="text-[14px]">Нет типа продукта...</p>
-                    </p>
+                    </div>
                   ) : (
                     ""
                   )}
