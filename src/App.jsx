@@ -197,12 +197,11 @@ function App() {
   });
   // AddProductType section ---- END
 
- 
-
   return (
     <>
       <AddProductType selectMenuInfo={selectMenuInfo} getData={getData} />
       <AddProduct
+        uploadImageAndGetUrl={uploadImageAndGetUrl}
         getData={getData}
         activeMenuTypeId={activeMenuTypeId}
         activeMenuId={activeMenuId}
@@ -468,58 +467,93 @@ function App() {
             </button>
           </div>
 
-          
           <div className="grid grid-cols-2 md:grid-cols-3  xl:grid-cols-4 gap-4 my-4">
-          {/* Card Design START */}
-          {activeProducts?.map((product, index) => (
-            <div className="border p-4 relative" key={index}>
+            {/* Card Design START */}
+            {activeProducts?.map((product, index) => (
+              <div className="border p-4 relative" key={index}>
+                <span
+                  className={`absolute top-1 left-1 text-[12px] px-1 py-[3px] 
+                ${
+                  product.best_seller
+                    ? "bg-green-400"
+                    : "bg-red-400 line-through"
+                }`}
+                >
+                  Лидеры продаж
+                </span>
 
-              <span className={`absolute top-1 left-1 text-[12px] px-1 py-[3px] 
-                ${product.best_seller ? "bg-green-400": "bg-red-400 line-through"}`}>
-                Лидеры продаж
-              </span>
+                {/* <div className="flex flex-wrap justify-center items-center pb-4 gap-2">
+                  {product.images_product.map((url, index) => (
+                    <img
+                      src={url}
+                      key={index}
+                      className="w-[70px] h-[70px] border"
+                    />
+                  ))}
+                </div> */}
 
-              <img src={product?.image_product} alt="" className="h-[220px] mx-auto" />
-
-              <div className="flex gap-4">
-                <p className="text-start line-clamp-2 font-semibold w-full">
-                  {product?.title}
-                </p>
-                <div className="text-end">
-                  <p className="whitespace-nowrap font-semibold">
-                    {product?.price} сум
-                  </p>
-                  <p className="whitespace-nowrap line-through text-[14px] font-semibold opacity-50">
-                    {product?.fix_price} сум
-                  </p>
-                </div>
-              </div>
-
-              <div className="py-4">
-                <p className="font-semibold">Габариты:</p>
-                <div className="grid grid-cols-3 text-start text-[14px] gap-2 py-1">
-                  <div>
-                    <p className="opacity-60">Длина</p> <p>{product?.length} см</p>
-                  </div>
-                  <div>
-                    <p className="opacity-60">Ширина</p> <p>{product?.width} см</p>
-                  </div>
-                  <div>
-                    <p className="opacity-60">Высота</p> <p>{product?.height} см</p>
+                <div className="flex justify-center items-center mb-3">
+                  <div className="carousel carousel-vertical w-full h-[250px]">
+                    {product.images_product.map((url, index) => (
+                      <div
+                        key={index}
+                        className="carousel-item h-full object-cover"
+                      >
+                        <img src={url} className="w-full h-full" />
+                      </div>
+                    ))}
                   </div>
                 </div>
+
+                <div className="flex gap-4">
+                  <p className="text-start line-clamp-2 font-semibold w-full">
+                    {product?.title}
+                  </p>
+                  <div className="text-end">
+                    <p className="whitespace-nowrap font-semibold">
+                      {product?.price} сум
+                    </p>
+                    <p className="whitespace-nowrap line-through text-[14px] font-semibold opacity-50">
+                      {product?.fix_price} сум
+                    </p>
+                  </div>
+                </div>
+
+                <div className="py-4">
+                  <p className="font-semibold">Габариты:</p>
+                  <div className="grid grid-cols-3 text-start text-[14px] gap-2 py-1">
+                    <div>
+                      <p className="opacity-60">Длина</p>{" "}
+                      <p>{product?.length} см</p>
+                    </div>
+                    <div>
+                      <p className="opacity-60">Ширина</p>{" "}
+                      <p>{product?.width} см</p>
+                    </div>
+                    <div>
+                      <p className="opacity-60">Высота</p>{" "}
+                      <p>{product?.height} см</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <RemoveProduct
+                    getData={getData}
+                    activeMenuTypeId={activeMenuTypeId}
+                    activeMenuId={activeMenuId}
+                    id={product.id}
+                  />
+                  <button className="btn btn-sm flex-grow">
+                    {" "}
+                    <i className="bi bi-menu-button-wide-fill"></i>{" "}
+                  </button>
+                </div>
               </div>
+            ))}
 
-              <div className="flex gap-4">
-                <RemoveProduct getData={getData} activeMenuTypeId={activeMenuTypeId} activeMenuId={activeMenuId} id={product.id} />
-                <button className="btn btn-sm flex-grow"> <i className="bi bi-menu-button-wide-fill"></i> </button>
-              </div>
-
-            </div>
-          ))}
-
-          {/* Card Design END */}
-        </div>
+            {/* Card Design END */}
+          </div>
 
           {activeProducts.length === 0 ? (
             <div className="flex justify-center items-center w-full">
