@@ -16,6 +16,7 @@ function AddProduct({
     length: "",
     width: "",
     height: "",
+    description_title: "",
     description: "",
     best_seller: false,
   });
@@ -158,6 +159,7 @@ function AddProduct({
         length: "",
         width: "",
         height: "",
+        description_title: "",
         description: "",
         best_seller: false,
       });
@@ -306,6 +308,16 @@ function AddProduct({
                   />
                 </label>
               </div>
+              <label className="flex flex-col w-full my-2">
+                  <span className="text-[15px]">Название описание:</span>
+                  <input
+                    type="text"
+                    name="description_title"
+                    value={productInfo.description_title}
+                    onChange={inputHandle}
+                    className="border px-2 py-1"
+                  />
+                </label>
               <div className="flex mt-3 gap-3">
                 <div className="border border-dashed w-[140px] h-auto flex-shrink-0 flex flex-col justify-center items-center">
                   <img

@@ -8,6 +8,7 @@ import RemoveProductType from "./components/RemoveProductType";
 import AddProduct from "./components/AddProduct";
 import RemoveProduct from "./components/RemoveProduct";
 import AddNewFurniture from "./components/AddNewFurniture";
+import ProductDescription from "./components/ProductDescription";
 
 function App() {
   const [activeMenuId, setActiveMenuId] = useState("");
@@ -29,7 +30,7 @@ function App() {
       console.log(data);
       setAllProduct(data);
 
-      if (activeMenuTypeId !== "") {
+      if (activeMenuTypeId !== "" && activeMenuId !== "") {
         const selectedFurniture = data.find((item) => item.id === activeMenuId);
         if (selectedFurniture) {
           const selectedType = selectedFurniture.types.find(
@@ -131,9 +132,9 @@ function App() {
 
                 {/* Furniture type END */}
                 {item.types.length === 0 ? (
-                  <div className="text-center mt-4">
-                    <i className="bi bi-folder-x text-3xl text-red-700 opacity-75"></i>
-                    <p className="text-[14px]">Нет типа продукта...</p>
+                  <div className="text-center mt-4 flex justify-center items-center gap-2">
+                    <i className="bi bi-folder-x text-3xl"></i>
+                    <span>Нет типа продукта...</span>
                   </div>
                 ) : (
                   ""
@@ -197,10 +198,11 @@ function App() {
           </div>
 
           {activeProducts.length === 0 ? (
-            <div className="flex justify-center items-center w-full">
-              <p className="text-center my-4">
-                <i className="bi bi-diagram-3 text-3xl"></i>
-                <br /> Нет продукта ...
+            <div className="flex justify-center items-center w-full mt-12">
+              <p className="text-center my-4 flex justify-center items-center gap-2">
+                {/* <i className="bi bi-diagram-3 text-3xl"></i> */}
+                <i className="bi bi-info-circle text-3xl"></i>
+                <span>Нет продукта ...</span>
               </p>
             </div>
           ) : (
@@ -264,10 +266,7 @@ function App() {
                       activeMenuId={activeMenuId}
                       id={product.id}
                     />
-                    <button className="btn btn-sm flex-grow">
-                      {" "}
-                      <i className="bi bi-menu-button-wide-fill"></i>{" "}
-                    </button>
+                    <ProductDescription product={product} />
                   </div>
                 </div>
               ))}
