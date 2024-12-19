@@ -292,14 +292,13 @@ function AddProduct({ getData, activeMenuTypeId, activeMenuId, uploadImageAndGet
                   ></textarea>
                 </label>
               </div>
-              <div className="mt-3 flex gap-4 border py-1 px-2">
-                <span className="whitespace-nowrap">Лучшая распродажа</span>
+              <div className="mt-3 flex justify-center items-center gap-4 border border-dashed rounded-xl py-1 px-2">
 
-                <div className="flex justify-around w-full">
+                <span className="whitespace-nowrap">Лучшая распродажа:</span>
+
+                <div className="flex justify-around w-full gap-12">
                   
-                    
                     <label htmlFor="bestSeller1" className="btn btn-sm">
-                      
                     <input
                       type="radio"
                       id="bestSeller1"
@@ -310,13 +309,9 @@ function AddProduct({ getData, activeMenuTypeId, activeMenuId, uploadImageAndGet
                       className=""
                     />
                       <span className="ml-2">Да</span>
-                    </label>
-                  
-
-                 
+                    </label>               
                     
-                    <label htmlFor="bestSeller2" className="btn btn-sm">
-
+                    <label htmlFor="bestSeller2" className="btn btn-sm ">
                     <input
                       type="radio"
                       id="bestSeller2"
@@ -324,9 +319,9 @@ function AddProduct({ getData, activeMenuTypeId, activeMenuId, uploadImageAndGet
                       value={false}
                       checked={productInfo.best_seller === false}
                       onChange={inputHandle}
+                      className=""
                     />
                     <span className="ml-2">Нет</span>
-                      
                     </label>
                   
                 </div>

@@ -359,7 +359,7 @@ function App() {
                     <DeleteItem id={item.id} getData={getData} />
                   </div>
                   <div className="flex gap-4 mb-6">
-                    <p className="text-[14px] w-full">{item?.description}</p>
+                    <p className="text-[14px] w-full text-justify">{item?.description}</p>
                     <img
                       src={item?.image}
                       alt={item?.name}
@@ -368,7 +368,7 @@ function App() {
                   </div>
                   <div className="border px-2 py-1 mb-3 flex justify-start items-center">
                     <p className="font-semibold w-full flex justify-start items-center">
-                      <span>Number of product types:</span>&nbsp;
+                      <span>Количество типов продуктов:</span>&nbsp;
                       <span className="text-red-700">{item.types.length}</span>
                     </p>
                     <button
@@ -388,17 +388,16 @@ function App() {
 
                   {/* Furniture type END */}
                   {item.types.length === 0 ? (
-                    <p className="text-center my-4">
-                      <i className="bi bi-diagram-3 text-3xl"></i>
-                      <br />
-                      No product type...
+                    <p className="text-center mt-4">
+                      <i className="bi bi-folder-x text-3xl text-red-700 opacity-75"></i>
+                      <p className="text-[14px]">Нет типа продукта...</p>
                     </p>
                   ) : (
                     ""
                   )}
 
                   {item?.types && (
-                    <ul className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-8 pb-4">
+                    <ul className="grid grid-cols-1 lg:grid-cols-2 gap-4 pb-4">
                       {item.types.map((product) => (
                         <div
                           onMouseEnter={() => handleMouseEnterType(product.id)}
@@ -431,10 +430,11 @@ function App() {
                             <i className="bi bi-chevron-right opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
                             <img
                               src={product.image}
-                              className="mx-auto h-[50px] transition-all duration-300 ease-in-out transform group-hover:scale-105"
+                              className="mx-auto h-[50px] transition-all duration-300 ease-in-out transform group-hover:scale-110"
                               alt=""
                             />
                           </div>
+                          <div className="text-justify text-[12px]">{product.description}</div>
                         </div>
                       ))}
                     </ul>
