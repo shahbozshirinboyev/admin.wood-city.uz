@@ -75,7 +75,7 @@ function AddNewFurniture({uploadImageAndGetUrl, getData}) {
       };
   return (
     <>
-        <div className="my-4 flex justify-end items-center">
+        <div className="flex justify-end items-center">
             <button className="btn btn-sm" onClick={() => document.getElementById("addFurniture").showModal()}>
               <i className="bi bi-plus-lg"></i>Добавить
             </button>
