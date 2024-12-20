@@ -33,8 +33,8 @@ function SignIn({ login, setLogin, getData }) {
     { !login === true && <div className="flex w-full h-screen justify-center items-center">
       <div className="w-[350px] select-none">
         <form onSubmit={Login} className="flex flex-col gap-2">
-            <p className="text-center text-3xl font-bold">WoodCity</p>
-            <p className="text-center font-bold mb-6">Панель Управления</p>
+            <p className="text-center text-3xl font-bold">Wood-City.Uz</p>
+            <p className="text-center text-[14px] font-bold mb-6">ПАНЕЛЬ УПРАВЛЕНИЯ</p>
           <label className="input input-bordered flex items-center gap-2">
             <i className="bi bi-person"></i>
             <input required type="text" name="username" className="grow" placeholder="Пользователя" value={logInfo.username} onChange={inputHandle} />
