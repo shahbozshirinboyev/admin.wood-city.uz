@@ -17,6 +17,57 @@ function EditProductType({ productType, getData}) {
         }));
       };
 
+      const typeIdToUpdate = productType.id;
+
+      const updateTypeDetailsByIdFromAllRows = async (typeIdToUpdate) => {
+        typeIdToUpdate.preventDefault();
+        setLoading(true);
+        try {
+          // 1. Jadvaldagi barcha qatorlarni olish
+          const { data: allData, error: fetchError } = await supabase
+            .from("furniture") // jadval nomi
+            .select("id, types"); // "id" va "types" ustunlari
+      
+          if (fetchError) {
+            throw fetchError;
+          }
+      
+          // 2. Har bir qatorni tekshirish va kerakli obyektni o'zgartirish
+          for (const row of allData) {
+            const { id, types } = row;
+      
+            // Agar types mavjud bo'lsa va ichida kerakli ID bo'lsa
+            if (types && types.some((type) => type.id === typeIdToUpdate)) {
+              // ID bo'yicha obyektni topish va o'zgartirish
+              const updatedTypes = types.map((type) =>
+                type.id === typeIdToUpdate
+                  ? { ...type, name: typesInfo.name, description: typesInfo.description, price: typesInfo.price } // kerakli qismini o'zgartirish
+                  : type
+              );
+      
+              // 3. Yangilangan "types" ni saqlash
+              const { error: updateError } = await supabase
+                .from("furniture") // jadval nomi
+                .update({ types: updatedTypes }) // yangilangan types
+                .eq("id", id); // qatorning ID si
+      
+              if (updateError) {
+                console.error(`Error updating row ${id}:`, updateError.message);
+              } else {
+                console.log(`Row ${id} updated successfully.`);
+              }
+            }
+          }
+      
+          console.log("All rows checked and updated.");
+        } catch (error) {
+          console.error("Error:", error.message);
+        }
+        getData();
+        setLoading(false);
+      };
+      
+
   return (
     <>
         <button className="btn btn-sm" onClick={() => { document.getElementById(`editProductType_${productType.id}`).showModal(); }}>
@@ -27,7 +78,7 @@ function EditProductType({ productType, getData}) {
         <div className="modal-box max-w-4xl">
           <>
             <form 
-            // onSubmit={addProductType}
+            onSubmit={updateTypeDetailsByIdFromAllRows}
             >
               <div className="flex justify-start items-center">
                 {/* <div className="border-black border border-dotted w-[140px] h-[140px] flex-shrink-0 flex flex-col justify-center items-center">

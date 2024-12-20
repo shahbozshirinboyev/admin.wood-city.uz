@@ -29,10 +29,10 @@ function EditItem({ item, getData }) {
         if (error) {
           console.error(error);
         } else {
-          getData();
           document.getElementById(`editItem${item.id}`).close();
           console.log(data);
         }
+        getData();
         setLoading(false);
       }
       
@@ -164,7 +164,7 @@ function EditItem({ item, getData }) {
                       <span className="loading loading-spinner loading-xs"></span> Сохранение...
                     </div>
                   </button>
-                  
+
                 </form>
               </div>
           </>          

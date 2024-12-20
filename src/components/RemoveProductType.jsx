@@ -3,6 +3,7 @@ import supabase from "../services/supabase";
 
 function RemoveProductType({ id, getData }) {
   const [loading, setLoading] = useState(false);
+  
   const removeTypeByIdFromAllRows = async (typeIdToDelete) => {
     setLoading(true);
     try {
