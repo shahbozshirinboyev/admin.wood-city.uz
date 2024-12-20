@@ -13,9 +13,9 @@ import EditItem from "./components/EditItem";
 import EditProductType from "./components/EditProductType";
 
 function App() {
+  const [activeType, setActiveType] = useState(true);
   const [activeMenuId, setActiveMenuId] = useState("");
   const [activeMenuTypeId, setActiveMenuTypeId] = useState("");
-  const [activeType, setActiveType] = useState(true);
   const [activeProducts, setActiveProducts] = useState([]);
 
   const handleMouseEnterMenu = (id) => { setActiveMenuId(id); };
@@ -70,6 +70,14 @@ function App() {
     return data.publicUrl;
   };
 
+  const [rotate, setRotate] = useState(false);
+
+  const handleClickRefresh = () => {
+    setRotate(true);
+    setTimeout(() => setRotate(false), 1000);
+    setTimeout(() =>  window.location.reload(), 1000);
+  };
+
   return (
     <>
       <AddProductType selectMenuInfo={selectMenuInfo} getData={getData} />
@@ -78,9 +86,18 @@ function App() {
         <div className="container">
 
           <div className="mt-6 flex justify-between items-center">
-            <button onClick={() => { setActiveType(true); }} className={`btn btn-sm ${activeType ? "opacity-70 cursor-not-allowed" : ""}`}>
-              <i className="bi bi-house"></i> Главная
-            </button>
+
+            <div className="flex gap-4 justify-start items-center">
+
+              <button onClick={() => { setActiveType(true); }} className={`btn btn-sm ${activeType ? "opacity-70 cursor-not-allowed" : ""}`}>
+                <i className="bi bi-house"></i> Главная
+              </button>
+
+              <button onClick={() => { handleClickRefresh(); getData(); }} className={`btn btn-sm ${rotate ? 'bg-sky-500 text-white hover:text-white border-0 hover:bg-sky-500' : ''}`}>
+                <i className={`bi bi-arrow-clockwise flex justify-center items-center ${rotate ? 'animate-spin' : ''}`}></i>
+              </button>
+
+            </div>
 
             <AddNewFurniture getData={getData} uploadImageAndGetUrl={uploadImageAndGetUrl} />
           </div>
@@ -195,9 +212,17 @@ function App() {
         <div className="container">
 
           <div className="mt-6 flex justify-between items-center">
+          <div className="flex gap-4 justify-start items-center">
+
             <button onClick={() => { setActiveType(true); }} className="btn btn-sm">
               <i className="bi bi-house"></i> Главная
             </button>
+
+            <button onClick={() => { handleClickRefresh(); getData(); }} className={`btn btn-sm ${rotate ? 'bg-sky-500 text-white hover:text-white border-0 hover:bg-sky-500' : ''}`}>
+                <i className={`bi bi-arrow-clockwise flex justify-center items-center ${rotate ? 'animate-spin' : ''}`}></i>
+              </button>
+
+            </div>
 
             <AddProduct uploadImageAndGetUrl={uploadImageAndGetUrl} getData={getData} activeMenuTypeId={activeMenuTypeId} activeMenuId={activeMenuId} />
           </div>
