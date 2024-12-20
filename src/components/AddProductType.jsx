@@ -96,14 +96,14 @@ function AddProductType({ selectMenuInfo, getData }) {
                       png.url ? "" : "hidden"
                     } w-auto h-[90px] object-cover mb-1`}
                   />
-                  <p className={`text-[12px] py-1 ${png.url ? "hidden" : ""}`}>
-                    Select only PNG/JPG
+                  <p className={`text-[11px] py-1 ${png.url ? "hidden" : ""}`}>
+                  Выбрать только PNG/JPG
                   </p>
                   <label
-                    className={`text-[12px] btn btn-sm ${png.url ? "" : ""}`}
+                    className={`text-[12px] btn btn-xs ${png.url ? "" : ""}`}
                     htmlFor="selectpng"
                   >
-                    Select PNG/JPG
+                    Выбрать PNG/JPG
                   </label>
                   <input
                     className="hidden"
@@ -115,47 +115,50 @@ function AddProductType({ selectMenuInfo, getData }) {
                 </div>
                 <div className="flex flex-col px-6 w-full">
                   <label htmlFor="" className="flex flex-col">
-                    <span>Name:</span>
+                    <span>Названия:</span>
                     <input
                       name="name"
                       value={typesInfo.name}
                       onChange={inputHandle}
                       className="border px-2 py-1"
+                      placeholder="Угловые диваны"
                       type="text"
                     />
                   </label>
                   <label htmlFor="" className="flex flex-col mt-2">
-                    <span>Price:</span>
+                    <span>Цена:</span>
                     <input
                       name="price"
                       value={typesInfo.price}
                       onChange={inputHandle}
                       className="border px-2 py-1"
+                      placeholder="от 3 450 000 сум."
                       type="text"
                     />
                   </label>
                 </div>
               </div>
               <label htmlFor="" className="flex flex-col my-2">
-                <span>Description:</span>
+                <span>Описание:</span>
                 <textarea
                   rows="5"
                   name="description"
                   value={typesInfo.description}
                   onChange={inputHandle}
                   className="border px-2 py-1"
+                  placeholder="Краткое описание продукта ..."
                   type="text"
                 ></textarea>
               </label>
               <button className="btn btn-sm mt-3 w-full">
-                <span className={`${loading ? "hidden" : ""}`}>Add</span>
+                <span className={`${loading ? "hidden" : ""}`}>Добавить</span>
                 <div
                   className={`flex justify-center items-center gap-3 ${
                     loading ? "" : "hidden"
                   }`}
                 >
                   <span className="loading loading-spinner loading-xs"></span>
-                  Adding...
+                  Добавляется...
                 </div>
               </button>
             </form>

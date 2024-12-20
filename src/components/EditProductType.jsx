@@ -17,11 +17,11 @@ function EditProductType({ productType, getData}) {
         }));
       };
 
-      const typeIdToUpdate = productType.id;
-
-      const updateTypeDetailsByIdFromAllRows = async (typeIdToUpdate) => {
-        typeIdToUpdate.preventDefault();
+      
+      const updateTypeDetailsByIdFromAllRows = async (e) => {
+        e.preventDefault();
         setLoading(true);
+        const typeIdToUpdate = productType.id
         try {
           // 1. Jadvaldagi barcha qatorlarni olish
           const { data: allData, error: fetchError } = await supabase
@@ -59,11 +59,13 @@ function EditProductType({ productType, getData}) {
             }
           }
       
+          getData();
+          document.getElementById(`editProductType_${productType.id}`).close();
           console.log("All rows checked and updated.");
+
         } catch (error) {
           console.error("Error:", error.message);
         }
-        getData();
         setLoading(false);
       };
       

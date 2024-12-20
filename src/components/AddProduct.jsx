@@ -180,7 +180,7 @@ function AddProduct({
       </button>
 
       <dialog id="addproduct" className="modal">
-        <div className="modal-box max-w-2xl">
+        <div className="modal-box max-w-4xl">
           <>
             <form onSubmit={addProduct}>
               <label
@@ -239,6 +239,7 @@ function AddProduct({
                   <input
                     type="text"
                     name="title"
+                    placeholder="Кресло универсальное Орион 22"
                     value={productInfo.title}
                     onChange={inputHandle}
                     className="border px-2 py-1"
@@ -254,6 +255,7 @@ function AddProduct({
                         name="price"
                         value={productInfo.price}
                         onChange={inputHandle}
+                        placeholder="3 750 000"
                         className="border px-2 py-1"
                       />
                     </label>
@@ -268,6 +270,7 @@ function AddProduct({
                         type="text"
                         name="fix_price"
                         value={productInfo.fix_price}
+                        placeholder="4 550 000"
                         onChange={inputHandle}
                         className="border px-2 py-1"
                       />
@@ -277,43 +280,48 @@ function AddProduct({
               </div>
 
               <div className="mt-3 flex gap-3">
-                <label className="flex flex-col">
+                <label className="flex flex-col w-full">
                   <span className="text-[15px]">Длина: (cm)</span>
                   <input
                     type="number"
                     name="length"
                     value={productInfo.length}
+                    placeholder="345"
                     onChange={inputHandle}
-                    className="border px-2 py-1"
+                    className="border px-2 py-1 w-full"
                   />
                 </label>
-                <label className="flex flex-col">
+                <label className="flex flex-col w-full">
                   <span className="text-[15px]">Ширина: (cm)</span>
                   <input
                     type="number"
                     name="width"
                     value={productInfo.width}
+                    placeholder="150"
                     onChange={inputHandle}
-                    className="border px-2 py-1"
+                    className="border px-2 py-1 w-full"
                   />
                 </label>
-                <label className="flex flex-col">
+                <label className="flex flex-col w-full">
                   <span className="text-[15px]">Высота: (cm)</span>
                   <input
                     type="number"
                     name="height"
                     value={productInfo.height}
+                    placeholder="80"
                     onChange={inputHandle}
-                    className="border px-2 py-1"
+                    className="border px-2 py-1 w-full"
                   />
                 </label>
               </div>
+
               <label className="flex flex-col w-full my-2">
                   <span className="text-[15px]">Название описание:</span>
                   <input
                     type="text"
                     name="description_title"
                     value={productInfo.description_title}
+                    placeholder="Универсальное кресло Орион 22 цвет Ментоловый"
                     onChange={inputHandle}
                     className="border px-2 py-1"
                   />
@@ -354,6 +362,7 @@ function AddProduct({
                     className="border px-2 py-1"
                     name="description"
                     value={productInfo.description}
+                    placeholder="Больше информации о продукте ..."
                     onChange={inputHandle}
                   ></textarea>
                 </label>
@@ -390,14 +399,14 @@ function AddProduct({
                 </div>
               </div>
               <button type="submit" className="mt-3 btn btn-sm w-full">
-                <span className={`${loading ? "hidden" : ""}`}>Save</span>
+                <span className={`${loading ? "hidden" : ""}`}>Добавить</span>
                 <span
                   className={`justify-center items-center gap-3 ${
                     loading ? "flex" : "hidden"
                   }`}
                 >
                   <span className="loading loading-spinner loading-sm"></span>
-                  <span>Saving...</span>
+                  <span>Добавляется...</span>
                 </span>
               </button>
             </form>

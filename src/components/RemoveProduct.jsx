@@ -61,21 +61,21 @@ function RemoveProduct({ getData, id, activeMenuTypeId, activeMenuId}) {
 
     <dialog id={`modal_${id}`} className="modal">
 
-        <div className="modal-box">
+        <div className="modal-box font-semibold">
 
-          <h6 className="pb-4 text-[16px]">Delete product?</h6>
+          <h6 className="pb-4 text-[16px]">Удалить продукт ?</h6>
 
           <div className="flex justify-center gap-8">
 
             <button onClick={() => { removeProduct(id); }} className="btn btn-sm" >
-              <span className={`${loading ? "hidden" : ""}`}>OK</span>
+              <span className={`${loading ? "hidden" : ""}`}>Удалить</span>
               <div className={`flex justify-center items-center gap-3 ${ loading ? "" : "hidden" }`}>
-                <span className="loading loading-spinner loading-xs"></span>Deleting...
+                <span className="loading loading-spinner loading-xs"></span>Удаляется...
               </div>
             </button>
 
             <button onClick={() => { document.getElementById(`modal_${id}`).close(); }} className="btn btn-sm">
-              Cancel
+            Отмена
             </button>
 
           </div>

@@ -34,7 +34,7 @@ function DeleteItem({ id, getData }) {
 
       <dialog id={`my_modal_${id}`} className="modal">
         <div className="modal-box">
-          <h6 className="pb-4 text-[16px]">Delete product menu?</h6>
+          <h6 className="pb-4 text-[16px] font-semibold">Удалить меню продукта ?</h6>
           <div className="flex justify-center gap-8">
             <button
               onClick={() => {
@@ -42,14 +42,14 @@ function DeleteItem({ id, getData }) {
               }}
               className="btn btn-sm"
             >
-              <span className={`${loading ? "hidden" : ""}`}>OK</span>
+              <span className={`${loading ? "hidden" : ""}`}>Удалить</span>
               <div
                 className={`flex justify-center items-center gap-3 ${
                   loading ? "" : "hidden"
                 }`}
               >
                 <span className="loading loading-spinner loading-xs"></span>
-                Deleting...
+                Удаляется...
               </div>
             </button>
             <button
@@ -58,7 +58,7 @@ function DeleteItem({ id, getData }) {
               }}
               className="btn btn-sm"
             >
-              Cancel
+              Отмена
             </button>
           </div>
         </div>

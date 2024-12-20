@@ -55,8 +55,8 @@ function RemoveProductType({ id, getData }) {
         </button>
 
       <dialog id={`modal_${id}`} className="modal">
-        <div className="modal-box">
-          <h6 className="pb-4 text-[16px]">Delete product type?</h6>
+        <div className="modal-box font-semibold">
+          <h6 className="pb-4 text-[16px]">Удалить тип продукта?</h6>
           <div className="flex justify-center gap-8">
             <button
               onClick={() => {
@@ -64,14 +64,14 @@ function RemoveProductType({ id, getData }) {
               }}
               className="btn btn-sm"
             >
-              <span className={`${loading ? "hidden" : ""}`}>OK</span>
+              <span className={`${loading ? "hidden" : ""}`}>Удалить</span>
               <div
                 className={`flex justify-center items-center gap-3 ${
                   loading ? "" : "hidden"
                 }`}
               >
                 <span className="loading loading-spinner loading-xs"></span>
-                Deleting...
+                Удаляется...
               </div>
             </button>
             <button
@@ -80,10 +80,13 @@ function RemoveProductType({ id, getData }) {
               }}
               className="btn btn-sm"
             >
-              Cancel
+              Отмена
             </button>
           </div>
         </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
       </dialog>
     </>
   );

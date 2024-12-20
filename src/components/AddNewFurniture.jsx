@@ -82,13 +82,13 @@ function AddNewFurniture({uploadImageAndGetUrl, getData}) {
           </div>
 
           <dialog id="addFurniture" className="modal">
-            <div className="modal-box max-w-xl">
+            <div className="modal-box max-w-3xl">
               <div>
                 <form onSubmit={addNewFurnitureMenu}>
                   <div>
                     <label htmlFor="" className="">
                       <span>
-                        Name<span className="text-red-600">*</span>
+                      Названия<span className="text-red-600">*</span>
                       </span>
                       <input
                         required
@@ -97,14 +97,14 @@ function AddNewFurniture({uploadImageAndGetUrl, getData}) {
                         onChange={inputHandle}
                         type="text"
                         className="border w-full px-2 py-1 rounded-md"
-                        placeholder="Name"
+                        placeholder="Диваны и кресла"
                       />
                     </label>
                   </div>
                   <div className="mt-3">
                     <label htmlFor="" className="">
                       <span>
-                        Description<span className="text-red-600">*</span>
+                      Описание<span className="text-red-600">*</span>
                       </span>
                       <textarea
                         required
@@ -112,8 +112,8 @@ function AddNewFurniture({uploadImageAndGetUrl, getData}) {
                         value={menuData.description}
                         onChange={inputHandle}
                         type="text"
-                        rows="4"
-                        placeholder="Type here ..."
+                        rows="5"
+                        placeholder="Краткое описание продукта ..."
                         className="border w-full px-2 py-1 rounded-md"
                       ></textarea>
                     </label>
@@ -132,13 +132,13 @@ function AddNewFurniture({uploadImageAndGetUrl, getData}) {
                           svg.url ? "hidden" : ""
                         }`}
                       >
-                        Select only SVG
+                        Выбрать только SVG
                       </p>
                       <label
-                        className={`btn btn-sm ${svg.url ? "" : ""}`}
+                        className={`btn btn-xs ${svg.url ? "" : ""}`}
                         htmlFor="selectsvg"
                       >
-                        Select SVG
+                        Выбрать SVG
                       </label>
                       <input
                         className="hidden"
@@ -162,13 +162,13 @@ function AddNewFurniture({uploadImageAndGetUrl, getData}) {
                           png.url ? "hidden" : ""
                         }`}
                       >
-                        Select only PNG/JPG
+                        Выбрать только PNG/JPG
                       </p>
                       <label
-                        className={`btn btn-sm ${png.url ? "" : ""}`}
+                        className={`btn btn-xs ${png.url ? "" : ""}`}
                         htmlFor="selectpng"
                       >
-                        Select PNG/JPG
+                        Выбрать PNG/JPG
                       </label>
                       <input
                         className="hidden"
@@ -179,15 +179,15 @@ function AddNewFurniture({uploadImageAndGetUrl, getData}) {
                       />
                     </div>
                   </div>
-                  <button className="btn btn-sm mt-3 w-full">
-                    <span className={`${loading ? "hidden" : ""}`}>Save</span>
+                  <button className="btn btn-sm mt-4 w-full">
+                    <span className={`${loading ? "hidden" : ""}`}>Сохранить</span>
                     <div
                       className={`flex justify-center items-center gap-3 ${
                         loading ? "" : "hidden"
                       }`}
                     >
                       <span className="loading loading-spinner loading-xs"></span>
-                      Saving...
+                      Сохраняется...
                     </div>
                   </button>
                 </form>
