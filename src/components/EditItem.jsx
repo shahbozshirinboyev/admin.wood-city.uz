@@ -157,17 +157,14 @@ function EditItem({ item, getData }) {
                       />
                     </div> */}
                   </div>
+
                   <button className="btn btn-sm mt-3 w-full">
                     <span className={`${loading ? "hidden" : ""}`}>Сохранить</span>
-                    <div
-                      className={`flex justify-center items-center gap-3 ${
-                        loading ? "" : "hidden"
-                      }`}
-                    >
-                      <span className="loading loading-spinner loading-xs"></span>
-                      Сохранение...
+                    <div className={`flex justify-center items-center gap-3 ${loading ? "" : "hidden"}`}>
+                      <span className="loading loading-spinner loading-xs"></span> Сохранение...
                     </div>
                   </button>
+                  
                 </form>
               </div>
           </>          

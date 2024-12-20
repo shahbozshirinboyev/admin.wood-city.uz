@@ -10,6 +10,7 @@ import RemoveProduct from "./components/RemoveProduct";
 import AddNewFurniture from "./components/AddNewFurniture";
 import ProductDescription from "./components/ProductDescription";
 import EditItem from "./components/EditItem";
+import EditProductType from "./components/EditProductType";
 
 function App() {
   const [activeMenuId, setActiveMenuId] = useState("");
@@ -159,10 +160,11 @@ function App() {
                             </span>
                           </div>
 
-                          <RemoveProductType
-                            id={product.id}
-                            getData={getData}
-                          />
+                          <div className="flex justify-center items-center gap-4">
+                            <EditProductType productType={product} getData={getData} />
+                            <RemoveProductType id={product.id} getData={getData} />
+                          </div>
+
                         </div>
                         <div
                           onClick={() => {

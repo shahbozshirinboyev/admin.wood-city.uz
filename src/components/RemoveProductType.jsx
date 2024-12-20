@@ -49,14 +49,9 @@ function RemoveProductType({ id, getData }) {
   };
   return (
     <>
-      <button
-        className="btn btn-sm"
-        onClick={() => {
-          document.getElementById(`modal_${id}`).showModal();
-        }}
-      >
-        <i className={`bi bi-trash3`}></i>
-      </button>
+      <button className="btn btn-sm" onClick={() => { document.getElementById(`modal_${id}`).showModal(); }}>
+            <i className={`bi bi-trash3`}></i>
+        </button>
 
       <dialog id={`modal_${id}`} className="modal">
         <div className="modal-box">
