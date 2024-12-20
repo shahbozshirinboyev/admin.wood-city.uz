@@ -11,8 +11,11 @@ import AddNewFurniture from "./components/AddNewFurniture";
 import ProductDescription from "./components/ProductDescription";
 import EditItem from "./components/EditItem";
 import EditProductType from "./components/EditProductType";
+import SignIn from "./components/SignIn";
 
 function App() {
+  const [login, setLogin] = useState(localStorage.getItem('login'))
+  
   const [activeType, setActiveType] = useState(true);
   const [activeMenuId, setActiveMenuId] = useState("");
   const [activeMenuTypeId, setActiveMenuTypeId] = useState("");
@@ -29,7 +32,7 @@ function App() {
     if (error) {
       console.error(error);
     } else {
-      console.log(data);
+      // console.log(data);
       setAllProduct(data);
 
       if (activeMenuTypeId !== "" && activeMenuId !== "") {
@@ -80,9 +83,11 @@ function App() {
 
   return (
     <>
+      <SignIn login={login} setLogin={setLogin} getData={getData} />
+
       <AddProductType selectMenuInfo={selectMenuInfo} getData={getData} />
 
-      {activeType && (
+      { login === 'true' && activeType && (
         <div className="container">
 
           <div className="mt-6 flex justify-between items-center">
@@ -97,9 +102,14 @@ function App() {
                 <i className={`bi bi-arrow-clockwise flex justify-center items-center ${rotate ? 'animate-spin' : ''}`}></i>
               </button>
 
-            </div>
+              <button onClick={() => { localStorage.removeItem('login'); setLogin('') }} className={`btn btn-sm hover:bg-red-600 hover:border-red-600 hover:text-white`}>
+                <i className={`bi bi-box-arrow-right flex justify-center items-center`}></i>
+              </button>
+
+            </div>  
 
             <AddNewFurniture getData={getData} uploadImageAndGetUrl={uploadImageAndGetUrl} />
+        
           </div>
 
 
@@ -208,7 +218,7 @@ function App() {
         </div>
       )}
 
-      {!activeType && (
+      { login === 'true' && !activeType && (
         <div className="container">
 
           <div className="mt-6 flex justify-between items-center">
