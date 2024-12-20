@@ -18,20 +18,25 @@ function EditItem({ item, getData }) {
         }));
       };
 
-      async function updateProduct() {
+      const updateItem = async(e) => {
+        e.preventDefault();
+        setLoading(true);
         const { data, error } = await supabase
-          .from('products') // Jadval nomi
-          .update({ name: 'New Product Name', price: 100 }) // Tahrir qilinadigan ustunlar
-          .eq('id', 5); // Qaysi qatorni tahrirlash kerakligi
+          .from('furniture')
+          .update({ name: itemInfo.name, description: itemInfo.description })
+          .eq('id', item.id);
       
         if (error) {
-          console.error('Error updating product:', error);
+          console.error(error);
         } else {
-          console.log('Updated product:', data);
+          getData();
+          document.getElementById(`editItem${item.id}`).close();
+          console.log(data);
         }
+        setLoading(false);
       }
       
-      updateProduct();
+     
       
   return (
     <>
@@ -41,13 +46,13 @@ function EditItem({ item, getData }) {
 
       <dialog id={`editItem${item.id}`} className="modal text-[16px] font-normal" >
 
-        <div className="modal-box max-w-2xl">
+        <div className="modal-box max-w-4xl">
           <>
           <div>
                 <form 
-                // onSubmit={addNewFurnitureMenu}
+                onSubmit={updateItem}
                 >
-                    <div className="flex justify-around items-center border border-dashed p-4">
+                    {/* <div className="flex justify-around items-center border border-dashed p-4">
 
                         <div className="w-[180px] h-[180px] border border-dashed p-4 flex justify-center items-center">
                             <img src={itemInfo.icon} className="w-auto h-[90%]" />
@@ -57,11 +62,11 @@ function EditItem({ item, getData }) {
                             <img src={itemInfo.image} className="w-auto h-[90%]" />
                         </div>
 
-                    </div>
+                    </div> */}
                   <div>
                     <label htmlFor="" className="">
                       <span>
-                        Name<span className="text-red-600">*</span>
+                        Названия<span className="text-red-600">*</span>
                       </span>
                       <input
                         required
@@ -77,7 +82,7 @@ function EditItem({ item, getData }) {
                   <div className="mt-3">
                     <label htmlFor="" className="">
                       <span>
-                        Description<span className="text-red-600">*</span>
+                        Описание<span className="text-red-600">*</span>
                       </span>
                       <textarea
                         required
@@ -153,14 +158,14 @@ function EditItem({ item, getData }) {
                     </div> */}
                   </div>
                   <button className="btn btn-sm mt-3 w-full">
-                    <span className={`${loading ? "hidden" : ""}`}>Save</span>
+                    <span className={`${loading ? "hidden" : ""}`}>Сохранить</span>
                     <div
                       className={`flex justify-center items-center gap-3 ${
                         loading ? "" : "hidden"
                       }`}
                     >
                       <span className="loading loading-spinner loading-xs"></span>
-                      Saving...
+                      Сохранение...
                     </div>
                   </button>
                 </form>
