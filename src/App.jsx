@@ -255,13 +255,10 @@ function App() {
                   </span>
 
                   <div className="flex justify-center items-center mb-3">
-                    <div className="carousel carousel-vertical w-full h-[250px]">
+                    <div className="carousel carousel-vertical w-full h-[100px] border">
                       {product.images_product.map((url, index) => (
-                        <div
-                          key={index}
-                          className="carousel-item h-full object-cover"
-                        >
-                          <img src={url} className="w-full h-full" />
+                        <div key={index} className="carousel-item h-full object-cover">
+                          <img src={url} className="w-full" />
                         </div>
                       ))}
                     </div>
