@@ -176,7 +176,7 @@ function App() {
                     {item.types.map((product) => (
                       <div
                         onMouseEnter={() => handleMouseEnterType(product.id)}
-                        className="border hover:border-green-500 transition-all duration-300 p-4 group transition-all duration-300 ease-in-out transform hover:scale-100 flex flex-col justify-between"
+                        className="border hover:border-green-500 p-4 group transition-all duration-300 ease-in-out transform hover:scale-100 flex flex-col justify-between"
                         key={product.id}
                       >
                         <div className="flex justify-start items-start">
