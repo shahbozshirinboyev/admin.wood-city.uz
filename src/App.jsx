@@ -116,7 +116,7 @@ function App() {
           {allProduct.sort((a, b) => new Date(a.created_at) - new Date(b.created_at)).map((item) => (
             <div key={item.id}>
               {/* Furniture type START */}
-              <div className="border my-4 px-4" onMouseEnter={() => handleMouseEnterMenu(item.id)}>
+              <div className="border my-4 px-4 transition-all duration-300 hover:border-sky-500" onMouseEnter={() => handleMouseEnterMenu(item.id)}>
 
                 <div className="text-xl md:text-2xl lg:text-3xl font-bold py-4 flex gap-4 justify-between items-center">
                   <div className="flex justify-start items-center gap-4">
@@ -176,7 +176,7 @@ function App() {
                     {item.types.map((product) => (
                       <div
                         onMouseEnter={() => handleMouseEnterType(product.id)}
-                        className="border p-4 group transition-all duration-300 ease-in-out transform hover:scale-100 flex flex-col justify-between"
+                        className="border hover:border-green-500 transition-all duration-300 p-4 group transition-all duration-300 ease-in-out transform hover:scale-100 flex flex-col justify-between"
                         key={product.id}
                       >
                         <div className="flex justify-start items-start">
